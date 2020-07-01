@@ -1,0 +1,55 @@
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+table {
+  width: 75%;
+  padding: 8px;
+  font-size: 18px;
+  border-collapse: collapse;
+}
+
+th {
+  color: white;
+  background-color: #3d195b;
+  font-size: 14px;
+  text-align: left;
+  padding: 0px 8px;
+  height: 25px;
+}
+
+table td {
+  padding: 8px;
+  border-top: 1px solid rgba(128, 128, 128, 0.22);
+}
+
+.team {
+  display: table-row-group;
+}
+
+.element {
+  background-color: lime;
+  width: 2px;
+  height: 2px;
+  color: white;
+  border: 1px solid limegreen;
+  border-radius: 3px;
+  margin: 5px;
+}
