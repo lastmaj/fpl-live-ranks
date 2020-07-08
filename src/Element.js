@@ -3,7 +3,7 @@ import React from "react";
 const Element = (props) => {
   const elements = JSON.parse(sessionStorage.getItem("elements"));
 
-  const player = elements.filter((x) => x.id == props.id)[0];
+  const player = elements.filter((x) => x.id === props.id)[0];
   const pts = props.isCaptain ? props.total_points * 2 : props.total_points;
 
   return (

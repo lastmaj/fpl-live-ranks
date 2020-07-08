@@ -1,10 +1,9 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState } from "react";
 
 import Element from "./Element";
 
 const Entry = (props) => {
   const [showPicks, setShowPicks] = useState(false);
-  const [picks, setPicks] = useState(props.picks);
 
   const onClickHandler = () => {
     setShowPicks(!showPicks);
@@ -14,15 +13,25 @@ const Entry = (props) => {
     <Element
       key={i}
       id={x.element}
-      total_points={x.total_points}
+      total_points={x.total_points + (x.projected ? x.projected : 0)}
       isCaptain={x.is_captain}
       isVice={x.is_vice_captain}
     />
   ));
 
   const liveTotal = props.picks.reduce((acc, curr) => {
-    return acc + curr.total_points * curr.multiplier;
+    const total = curr.total_points + (curr.projected ? curr.projected : 0);
+    return acc + total * curr.multiplier;
   }, 0);
+
+  //update logic
+  let realTotal = props.total;
+  if (props.history.event === parseInt(sessionStorage.getItem("current"))) {
+    if (props.history.points !== liveTotal) {
+      console.log("here");
+      realTotal = props.history.total_points + liveTotal - props.history.points;
+    }
+  }
 
   return (
     <React.Fragment>
@@ -30,8 +39,10 @@ const Entry = (props) => {
         <td>{props.name}</td>
         <td>{props.playerName}</td>
         <td>{props.eventTotal}</td>
+        <td>{props.history.event_transfers_cost}</td>
         <td>{props.total}</td>
         <td>{liveTotal}</td>
+        <td>{realTotal}</td>
       </tr>
       <tr>
         <td
