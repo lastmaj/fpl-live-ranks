@@ -20,6 +20,7 @@ const League = (props) => {
     if (!sessionStorage.getItem("league")) {
       axios.get("/league").then((res) => {
         setName(res.data.league_name);
+        setTable(res.data.league_table);
         sessionStorage.setItem("league", JSON.stringify(res.data));
       });
     }
@@ -42,30 +43,50 @@ const League = (props) => {
     axios.get("/bonus").then((res) => setBonus(res.data));
   }, []);
 
-  const entries = table.map((x, i) => {
-    if (live.length !== 0) {
+  let entries = [];
+
+  if (live.length !== 0) {
+    const data = [...table];
+    table.map((x) => {
       x.picks.forEach((p) => {
         const player = live.find((l) => l.id === p.element);
         const player_bonus = bonus.find((l) => l.element === p.element);
         p["total_points"] = player["total_points"];
-        if (player_bonus !== undefined) {
-          p["projected"] = player_bonus["value"];
+        if (
+          player_bonus !== undefined &&
+          player.explain.stats[player.explain.stats.length - 1].identifier !==
+            "bonus"
+        ) {
+          console.log(player.explain.stats);
+          p["total_points"] += player_bonus["value"];
         }
       });
-      return (
-        <Entry
-          name={x.entry_name}
-          key={i}
-          playerName={x.player_name}
-          total={x.total}
-          eventTotal={x.event_total}
-          picks={x.picks}
-          history={x.history}
-        />
-      );
-    }
-    return null;
-  });
+      const liveTotal = x.picks.reduce((acc, curr) => {
+        const total = curr.total_points + (curr.projected ? curr.projected : 0);
+        return acc + total * curr.multiplier;
+      }, 0);
+
+      x.liveTotal = liveTotal;
+      x.realTotal = x.history_total + liveTotal - x.event_transfers_cost;
+      return null;
+    });
+
+    const sorted = data.sort((a, b) => b.realTotal - a.realTotal);
+
+    entries = sorted.map((x, i) => (
+      <Entry
+        name={x.entry_name}
+        key={i}
+        playerName={x.player_name}
+        total={x.total}
+        eventTotal={x.event_total}
+        picks={x.picks}
+        history={x.history}
+        liveTotal={x.liveTotal}
+        realTotal={x.realTotal}
+      />
+    ));
+  }
 
   return (
     <React.Fragment>

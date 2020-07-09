@@ -42,7 +42,7 @@ def get_live(gw=43):
     live_json = session.get(
         "https://fantasy.premierleague.com/api/event/"+str(gw)+"/live/").json()["elements"]
 
-    live = [{"id": x["id"], "total_points": x["stats"]["total_points"]}
+    live = [{"id": x["id"], "total_points": x["stats"]["total_points"], "explain": x["explain"]}
             for x in live_json]
 
     return jsonify(live)

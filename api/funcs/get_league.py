@@ -16,6 +16,13 @@ def get_league(session, username, pw, league_id, gw):
         picks_url = base_url + "entry/" + \
             str(entry["entry"])+"/event/" + str(gw) + "/picks/"
         picks_json = session.get(picks_url).json()
+        history_url = base_url + "entry/" + str(entry["entry"]) + "/history/"
+
+        history_json = session.get(history_url).json()["current"]
+
+        entry["history_total"] = history_json[-2]["total_points"]
+        entry["event_transfers_cost"] = history_json[-1]["event_transfers_cost"]
         entry["picks"] = picks_json["picks"]
         entry["history"] = picks_json["entry_history"]
+
     return {'league_name': league_name, 'league_table': league_table}
