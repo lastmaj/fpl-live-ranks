@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/bonus')
 def get_live_bonus():
     session = requests.Session()
-    return live_bonus(session, 43)
+    return live_bonus(session, 44)
 
 
 @app.route('/status')
@@ -25,7 +25,7 @@ def get_status():
 @app.route('/league')
 def league():
     session = requests.Session()
-    return get_league(session, username, pw, league_id, 43)
+    return get_league(session, username, pw, league_id, 44)
 
 
 @app.route('/bootstrap')
@@ -37,7 +37,7 @@ def get_bootstrap():
 
 
 @app.route('/live')
-def get_live(gw=43):
+def get_live(gw=44):
     session = requests.Session()
     live_json = session.get(
         "https://fantasy.premierleague.com/api/event/"+str(gw)+"/live/").json()["elements"]

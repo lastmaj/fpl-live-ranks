@@ -52,12 +52,12 @@ const League = (props) => {
         const player = live.find((l) => l.id === p.element);
         const player_bonus = bonus.find((l) => l.element === p.element);
         p["total_points"] = player["total_points"];
+
         if (
           player_bonus !== undefined &&
-          player.explain.stats[player.explain.stats.length - 1].identifier !==
-            "bonus"
+          player.explain[0].stats[player.explain[0].stats.length - 1]
+            .identifier !== "bonus"
         ) {
-          console.log(player.explain.stats);
           p["total_points"] += player_bonus["value"];
         }
       });
@@ -84,6 +84,8 @@ const League = (props) => {
         history={x.history}
         liveTotal={x.liveTotal}
         realTotal={x.realTotal}
+        lastRank={x.last_rank}
+        rank={i + 1}
       />
     ));
   }

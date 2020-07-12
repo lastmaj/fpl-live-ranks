@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+import ArrowUp from "./arrow-up.svg";
+import ArrowDown from "./arrow-down.svg";
+import ArrowSame from "./arrow-same.svg";
+
 import Element from "./Element";
 
 const Entry = (props) => {
@@ -19,10 +23,24 @@ const Entry = (props) => {
     />
   ));
 
+  let arrow = ArrowSame;
+
+  if (props.lastRank < props.rank) {
+    arrow = ArrowUp;
+  }
+  if (props.lastRank > props.rank) {
+    arrow = ArrowDown;
+  }
+
   return (
     <React.Fragment>
       <tr onClick={onClickHandler}>
-        <td>{props.name}</td>
+        <td>
+          <span>
+            <img src={arrow} alt="movement" />
+          </span>
+          {props.name}
+        </td>
         <td>{props.playerName}</td>
         <td>{props.eventTotal}</td>
         <td>{props.history.event_transfers_cost}</td>
