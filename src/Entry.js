@@ -24,21 +24,23 @@ const Entry = (props) => {
   ));
 
   let arrow = ArrowSame;
+  let arrowStyle = "arrow";
 
-  if (props.lastRank < props.rank) {
-    arrow = ArrowUp;
-  }
   if (props.lastRank > props.rank) {
+    arrow = ArrowUp;
+    arrowStyle += " green";
+  }
+  if (props.lastRank < props.rank) {
     arrow = ArrowDown;
+    arrowStyle += " red";
+    console.log(arrowStyle);
   }
 
   return (
     <React.Fragment>
       <tr onClick={onClickHandler}>
         <td>
-          <span>
-            <img src={arrow} alt="movement" />
-          </span>
+          <img className={arrowStyle} src={arrow} alt="movement" />
           {props.name}
         </td>
         <td>{props.playerName}</td>
@@ -50,8 +52,9 @@ const Entry = (props) => {
       </tr>
       <tr>
         <td
+          colSpan={"7"}
           className="team"
-          style={{ display: showPicks ? "table-row" : "none" }}
+          style={{ display: showPicks ? "table-cell" : "none" }}
         >
           {elements}
         </td>

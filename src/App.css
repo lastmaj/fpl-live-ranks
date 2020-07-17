@@ -10,15 +10,6 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 table {
   width: 75%;
   padding: 8px;
@@ -40,14 +31,23 @@ table td {
   border-top: 1px solid rgba(128, 128, 128, 0.22);
 }
 
-.team {
-  display: table-row-group;
+.arrow {
+  margin-right: 7px;
+  height: 15px;
+  background-color: rgb(236, 236, 46);
+}
+
+.green {
+  background-color: rgb(40, 149, 40);
+}
+
+.red {
+  background-color: rgb(179, 39, 39);
 }
 
 .element {
+  display: inline-block;
   background-color: lime;
-  width: 2px;
-  height: 2px;
   color: white;
   border: 1px solid limegreen;
   border-radius: 3px;

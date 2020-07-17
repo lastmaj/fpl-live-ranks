@@ -8,7 +8,7 @@ const Element = (props) => {
 
   return (
     <span className="element">
-      {player.web_name} | {pts}
+      {player.web_name} - {pts}
       {props.isCaptain ? " (c) " : null}
     </span>
   );
